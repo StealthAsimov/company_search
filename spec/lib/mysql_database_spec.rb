@@ -34,6 +34,7 @@ describe MysqlDatabase do
     @result = @client.query("SELECT name FROM companies WHERE name = 'ApoEx AB'")
     @result.each do |row|
       row['name'].should eql "ApoEx AB"
+      break
     end
     @client.query("DROP DATABASE IF EXISTS #{@db_name}")
     @result = @client.query("SHOW DATABASES")
