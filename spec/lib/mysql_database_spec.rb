@@ -31,7 +31,7 @@ describe MysqlDatabase do
         break
       end
     end
-    @result = @client.query("SELECT name FROM companies WHERE name = 'ApoEx AB'")
+    @result = @client.query("SELECT name FROM companies")
     @result.each do |row|
       row['name'].should eql "ApoEx AB"
       break

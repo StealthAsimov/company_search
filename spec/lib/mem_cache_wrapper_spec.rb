@@ -18,22 +18,27 @@ describe MemCacheWrapper do
     @companies = CompanySearcher.search("ApoEx AB")
     @companies.each do |key, value|
       if value == "ApoEx AB"
-        @client.query("INSERT INTO companies VALUES('#{key}', '#{value}')")
+        temp_value = value.gsub(" ", "_")
+        @client.query("INSERT INTO companies VALUES('#{key}', '#{temp_value}')")
         break
       end
     end
     @mem_host = "127.0.0.1"
     @memcache = MemCacheWrapper.get_memcache(@mem_host)
     @memcache.get("556633-4149").should eql nil
-    @result = @client.query("SELECT * FROM companies WHERE name = 'ApoEx AB'")
+    @memcache.get("ApoEx AB".gsub(" ", "_")).should eql nil
+    @result = @client.query("SELECT * FROM companies")
     @result.each do |row|
-      if row['name'] == 'ApoEx AB'
+      if row['name'] == 'ApoEx_AB'
         @memcache.set(row['identification_no'], row['name'], 1.hour)
+        @memcache.set(row['name'], row['identification_no'], 1.hour)
         break
       end
     end
-    @memcache.get("556633-4149").should eql 'ApoEx AB'
+    @memcache.get("556633-4149").should eql 'ApoEx_AB'
+    @memcache.get("ApoEx AB".gsub(" ", "_")).should eql '556633-4149'
     @memcache.delete '556633-4149'
+    @memcache.delete 'ApoEx_AB'
     @client.query("DROP DATABASE IF EXISTS #{@db_name}")
     @client.close
   end

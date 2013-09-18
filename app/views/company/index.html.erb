@@ -1,2 +1,6 @@
 <h1>Company searcher</h1>
-<p>Find me in app/views/company/index.html.erb</p>
+
+<form id="search_form" name="search" action="/companies/org_number" method="org_number">
+  <input type="text" name="company" class="search_field" value="<%= params[:name] %>" /><br />
+  <input type="submit" value="search" class="button" />
+</form>
