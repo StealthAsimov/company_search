@@ -36,7 +36,6 @@ class CompaniesController < ApplicationController
         end
       end
     end
-    string = (company_org_number || "Couldn't find the company called #{params[:company]}")
-    render text: string
+    @companies = (company_org_number || "Couldn't find the company called #{params[:company]}")
   end
 end
