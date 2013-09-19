@@ -1,28 +1,11 @@
-== README
+README
+======
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get this rails app to work, you need to make sure you install the dependicies from the Gemfile (bundle install). You need to run an instance of mysql and memcache (memcache -vv). Be sure to check that the user and password from the development setting match your mysql server root account and that the database is created (rake db:create).
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+As an user you can search for company org number information through the main page, and with the client.rb file. The app supports only swedish companies to start with. (allabolag.se).
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Best
+
+Andy Holst
